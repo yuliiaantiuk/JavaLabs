@@ -28,11 +28,6 @@ public class Main {
                     new Car("Toyota", "Prius", 2017, 14_500.0, 90_000)
             };
 
-            // Check if Car[] is null
-            if (cars == null) {
-                throw new IllegalArgumentException("An array of Cars is null");
-            }
-
             // Comparator: primary = year (ascending), secondary = price (descending)
             Comparator<Car> comparator = Comparator.nullsLast(
                     Comparator.comparingInt(Car::getYear)
