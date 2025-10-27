@@ -36,6 +36,8 @@ public class Sentence {
 
     /**
      * Returns the number of words in this sentence.
+     *
+     * @return number of words
      */
     public int getWordCount() {
         return words.length;
@@ -43,6 +45,8 @@ public class Sentence {
 
     /**
      * Returns the full text of the sentence.
+     *
+     * @return text of the sentence
      */
     public String getText() {
         String result = "";
