@@ -1,7 +1,18 @@
 import java.util.Comparator;
 import java.util.List;
-
+/**
+ * Demonstrates the use of {@link Candy} subclasses and the {@link Gift} class.
+ *
+ * <p>This class creates a set of candies, adds them to a gift,
+ * prints the gift contents, sorts candies by price, and finds candies
+ * within a specified chocolate content range.</p>
+ */
 public class Main {
+    /**
+     * The main entry point of the program.
+     *
+     * @param args the command-line arguments (not used)
+     */
     public static void main(String[] args) {
         try {
             Gift gift = new Gift();
@@ -12,6 +23,7 @@ public class Main {
             gift.addCandy(new CaramelCandy("Wether's", 15, 73.3, 200, 10, "liquid"));
             gift.addCandy(new CaramelCandy("Duchess", 18, 86.4, 120, 7, "solid"));
             gift.addCandy(new Lollipop("Chupa Chups", 21, 94.6, 83, 0, "apple"));
+            gift.addCandy(new Lollipop("Chupa Chups", 20, 98.6, 82, 0, "cherry"));
 
             System.out.println(gift);
 

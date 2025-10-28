@@ -1,19 +1,18 @@
 /**
  * Abstract base class representing a candy.
  *
- * <p>This class serves as a general blueprint for various types of sweets,
- * such as chocolate candies, or caramel candies or lollipops. It defines the common
- * properties and behavior shared by all sweet types.</p>
- *
+ * <p>This class serves as a blueprint for different types of sweets,
+ * such as chocolate candies, caramel candies, and lollipops.
+ * It defines the common attributes and behavior shared by all sweet types.</p>
  */
 public abstract class Candy {
     /** The name of the candy. */
     private final String name;
 
-    /** The weight of the sweet in grams. */
+    /** The weight of the candy in grams. */
     private final double weight;
 
-    /** The price of the sweet. */
+    /** The price of the candy. */
     private final double price;
 
     /** The energy value of the candy in calories. */
@@ -21,13 +20,27 @@ public abstract class Candy {
 
     /** The percentage of chocolate content (0 to 100). */
     private final double chocolatePercent;
-
+    /**
+     * Constructs a {@code Candy} object with the specified properties.
+     *
+     * @param name             the name of the candy
+     * @param weight           the weight in grams
+     * @param price            the price of the candy
+     * @param calories         the caloric value of the candy
+     * @param chocolatePercent the chocolate content percentage (0–100)
+     * @throws IllegalArgumentException if weight, price, or calories are negative,
+     *                                  if chocolatePercent is outside [0, 100],
+     *                                  if name is {@code null}
+     */
     public Candy(String name, double weight, double price, double calories, double chocolatePercent) {
         if (weight < 0 || price < 0 || calories < 0) {
             throw new IllegalArgumentException("Weight, price, and calories must be non-negative.");
         }
         if (chocolatePercent < 0 || chocolatePercent > 100) {
             throw new IllegalArgumentException("Chocolate percent must be between 0 and 100.");
+        }
+        if (name == null) {
+            throw new IllegalArgumentException("Name must not be null.");
         }
 
         this.name = name;
@@ -38,36 +51,36 @@ public abstract class Candy {
     }
 
     /**
-     * Returns the name of the sweet.
+     * Returns the name of the candy.
      *
-     * @return the sweet's name
+     * @return the candy's name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Returns the weight of the sweet in grams.
+     * Returns the weight of the candy in grams.
      *
-     * @return the sweet's weight
+     * @return the candy's weight
      */
     public double getWeight() {
         return weight;
     }
 
     /**
-     * Returns the price of the sweet.
+     * Returns the price of the candy.
      *
-     * @return the sweet's price
+     * @return the candy's price
      */
     public double getPrice() {
         return price;
     }
 
     /**
-     * Returns the caloric content of the sweet.
+     * Returns the caloric content of the candy.
      *
-     * @return the sweet's calories
+     * @return the candy's calories
      */
     public double getCalories() {
         return calories;
@@ -83,7 +96,7 @@ public abstract class Candy {
     }
 
     /**
-     * Returns a string representation of this sweet.
+     * Returns a string representation of this candy.
      *
      * @return a string containing all main properties of the sweet
      */

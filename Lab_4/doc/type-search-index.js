@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"Letter"},{"p":"<Unnamed>","l":"Punctuation"},{"p":"<Unnamed>","l":"Sentence"},{"p":"<Unnamed>","l":"SentenceSorter2"},{"p":"<Unnamed>","l":"Text"},{"p":"<Unnamed>","l":"Word"}]
