@@ -86,5 +86,15 @@ public class Main {
         System.out.println("candySet after clear(): " + candySet);
         System.out.println("Size of candySet: " + candySet.size());
         System.out.println("Is candySet empty: " + candySet.isEmpty());
+        System.out.println();
+
+        LinkedSet<Candy> emptyCandySet = new LinkedSet<>();
+        System.out.println("Size of emptyCandySet: " + emptyCandySet.size());
+        System.out.println("Is emptyCandySet empty: " + emptyCandySet.isEmpty());
+        System.out.println();
+
+        LinkedSet<Candy> singleCandySet = new LinkedSet<>(new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false));
+        System.out.println("Size of singleCandySet: " + singleCandySet.size());
+        System.out.println("Is singleCandySet empty: " + singleCandySet.isEmpty());
     }
 }
