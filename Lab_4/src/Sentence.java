@@ -1,12 +1,22 @@
 /**
- * Represents a sentence consisting of words and punctuation marks.
+ * Represents a sentence consisting of {@link Word} and {@link Punctuation} objects.
+ * <p>
+ * A {@code Sentence} is constructed by parsing a string into words and punctuation marks.
+ * Words and punctuation marks are stored separately in corresponding arrays.
+ * </p>
  */
 public class Sentence {
+    /** The words in the sentence */
     private final Word[] words;
+    /** The punctuation marks in the sentence */
     private final Punctuation[] punctuations;
 
     /**
-     * Constructs a Sentence from a string.
+     * Constructs a {@code Sentence} from a given string.
+     * <p>
+     * The constructor normalizes spaces and separates words from punctuation
+     * using regular expressions.
+     * </p>
      *
      * @param sentence the sentence text
      */
@@ -42,25 +52,20 @@ public class Sentence {
     public int getWordCount() {
         return words.length;
     }
-
     /**
-     * Returns the full text of the sentence.
+     * Returns the string representation of this sentence.
      *
-     * @return text of the sentence
+     * @return the full text of the sentence
      */
-    public String getText() {
+    @Override
+    public String toString() {
         String result = "";
         for (Word w : words) {
-            result += w.getText() + " ";
+            result += w.toString() + " ";
         }
         for (Punctuation p : punctuations) {
             result += p.getSymbol();
         }
         return result.trim();
-    }
-
-    @Override
-    public String toString() {
-        return getText();
     }
 }

@@ -1,10 +1,29 @@
 import java.util.*;
-
+/**
+ * A custom implementation of the {@link Set} interface based on a singly linked list.
+ * <p>
+ * This implementation does not allow duplicate elements and does not maintain
+ * any particular order of elements. It provides basic set operations such as
+ * adding, removing, checking containment, and iteration.
+ * </p>
+ *
+ * @param <T> the type of elements maintained by this set
+ */
 public class LinkedSet<T> implements Set<T> {
+    /**
+     * A node in the singly linked list representing one element of the set.
+     *
+     * @param <E> the type of element stored in the node
+     */
     private static class Node<E> {
+        /** The stored element value. */
         E value;
+        /** The reference to the next node in the list. */
         Node<E> next;
-        Node(E v, Node<E> n) { value = v; next = n; }
+        Node(E v, Node<E> n) {
+            value = v;
+            next = n;
+        }
     }
 
     private Node<T> head;

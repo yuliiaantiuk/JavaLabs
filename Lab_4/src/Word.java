@@ -1,11 +1,15 @@
 /**
- * Represents a word consisting of letters.
+ * Represents a word consisting of individual {@link Letter} objects.
+ * <p>
+ * Each {@code Word} is constructed by splitting a string into separate
+ * {@code Letter} instances. The class provides a method to reconstruct the full text of the word.
+ * </p>
  */
 public class Word {
     private final Letter[] letters;
 
     /**
-     * Constructs a Word from a string.
+     * Constructs a {@code Word} from a string.
      *
      * @param word the word as a string
      */
@@ -22,16 +26,12 @@ public class Word {
      *
      * @return the word as string
      */
-    public String getText() {
+    @Override
+    public String toString() {
         String result = "";
         for (Letter letter : letters) {
             result += letter.getValue();
         }
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return getText();
     }
 }

@@ -2,6 +2,7 @@
  * Represents a single character (letter) in a word.
  */
 public class Letter {
+    /** The character value */
     private final String value;
 
     /**

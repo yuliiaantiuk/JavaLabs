@@ -5,10 +5,15 @@ import java.util.Objects;
  * price, and mileage.
  */
 public class Car {
+    /** The brand of the car */
     private final String brand;
+    /** The model of the car */
     private final String model;
+    /** The year of manufacture of the car */
     private final int year;
+    /** The price of the car */
     private final double price;
+    /** The car mileage in kilometers */
     private final int mileage;
 
     /**

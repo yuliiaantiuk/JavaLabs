@@ -1,7 +1,21 @@
 /**
  * Sorts sentences in ascending order by the number of words in it
+ *
+ * <p>
+ * The program builds a {@link Text} object from a predefined string
+ * and prints all sentences sorted by their word count.
+ * </p>
  */
 public class SentenceSorter2 {
+    /**
+     * The entry point of the program.
+     * <p>
+     * Initializes a sample text, constructs a {@link Text} instance,
+     * and outputs the sorted sentences with their word counts.
+     * </p>
+     *
+     * @param args the command-line arguments (not used)
+     */
     public static void main(String[] args) {
         try {
             String text = "Is programming fun? Java was        created in the 1990s and has remained popular ever since. Java is one of the most widely used languages.\n" +
