@@ -81,7 +81,7 @@ public class LinkedSet<T> implements Set<T> {
         }
         return false;
     }
-
+    // тести залишились звідси
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
