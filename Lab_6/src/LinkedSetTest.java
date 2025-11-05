@@ -3,18 +3,41 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Unit tests for the {@link LinkedSet} collection class using {@code Candy} objects.
+ * <p>
+ * This test suite verifies functionality including:
+ * <ul>
+ *     <li>Constructors (empty, single element, and from collection)</li>
+ *     <li>Element addition and duplicate prevention</li>
+ *     <li>Element removal</li>
+ *     <li>Containment checks</li>
+ *     <li>Iterator behavior and fail-fast modification detection</li>
+ *     <li>Conversion to arrays</li>
+ *     <li>Bulk operations (addAll, removeAll, retainAll)</li>
+ *     <li>Clearing the set</li>
+ *     <li>String representation</li>
+ * </ul>
+ * </p>
+ */
 public class LinkedSetTest {
-
+    /** The list of {@code Candy} objects. */
     private List<Candy> gift;
+    /** An empty {@code LinkedSet}. */
     private LinkedSet<Candy> candySet;
-
+    /**
+     * Initializes test data and populates a {@link LinkedSet} before each test.
+     */
     @BeforeEach
     void setUp() {
         gift = createGift();
         candySet = new LinkedSet<>(gift);
     }
-
+    /**
+     * Creates a list of sample {@link Candy} objects for testing.
+     *
+     * @return predefined list of Candy elements
+     */
     private List<Candy> createGift() {
         return Arrays.asList(
                 new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true),
@@ -26,7 +49,9 @@ public class LinkedSetTest {
                 new Lollipop("Chupa Chups", 20, 98.6, 82, 0, "cherry")
         );
     }
-
+    /**
+     * Verifies that the empty constructor creates an empty set.
+     */
     @Test
     void testEmptyConstructor() {
         LinkedSet<Candy> emptySet = new LinkedSet<>();
@@ -34,7 +59,9 @@ public class LinkedSetTest {
         assertTrue(emptySet.isEmpty());
         assertEquals(0, emptySet.size());
     }
-
+    /**
+     * Tests constructor that initializes the set with a single element.
+     */
     @Test
     void testSingleElementConstructor() {
         Candy truffle = new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true);
@@ -44,7 +71,9 @@ public class LinkedSetTest {
         assertEquals(1, set.size());
         assertFalse(set.isEmpty());
     }
-
+    /**
+     * Tests constructor that initializes from a collection and prevents duplicates.
+     */
     @Test
     void testMultipleElementConstructor() {
         assertEquals(gift.size(), candySet.size());
@@ -54,7 +83,9 @@ public class LinkedSetTest {
         assertFalse(candySet.add(duplicate));
         assertFalse(candySet.isEmpty());
     }
-
+    /**
+     * Validates {@link LinkedSet#add(Object)} behavior including duplicate rejection.
+     */
     @Test
     void testAdd() {
         LinkedSet<Candy> set = new LinkedSet<>();
@@ -65,7 +96,9 @@ public class LinkedSetTest {
         assertFalse(set.isEmpty());
         assertFalse(set.add(candy));
     }
-
+    /**
+     * Tests removal of first, middle, and last elements in the set.
+     */
     @Test
     void testRemove() {
         int initialSize = candySet.size();
@@ -84,7 +117,9 @@ public class LinkedSetTest {
         assertFalse(candySet.contains(middle));
         assertFalse(candySet.contains(last));
     }
-
+    /**
+     * Verifies that {@link LinkedSet#contains(Object)} works correctly.
+     */
     @Test
     void testContains() {
         Candy exists = gift.get(4);
@@ -93,7 +128,9 @@ public class LinkedSetTest {
         assertTrue(candySet.contains(exists));
         assertFalse(candySet.contains(notExists));
     }
-
+    /**
+     * Ensures that the iterator visits all elements in the set.
+     */
     @Test
     void testIteratorTraversesAllElements() {
         Iterator<Candy> it = candySet.iterator();
@@ -106,7 +143,10 @@ public class LinkedSetTest {
         assertEquals(gift.size(), result.size());
         assertTrue(result.containsAll(gift));
     }
-
+    /**
+     * Ensures the iterator throws {@link ConcurrentModificationException}
+     * when the set is modified during iteration.
+     */
     @Test
     void testIteratorFailFastOnModification() {
         Iterator<Candy> it = candySet.iterator();
@@ -114,7 +154,9 @@ public class LinkedSetTest {
 
         assertThrows(ConcurrentModificationException.class, it::next);
     }
-
+    /**
+     * Tests {@link LinkedSet#toArray()} method.
+     */
     @Test
     void testToArrayObject() {
         Object[] arr = candySet.toArray();
@@ -125,8 +167,9 @@ public class LinkedSetTest {
         assertTrue(resultList.containsAll(gift));
         assertTrue(gift.containsAll(resultList));
     }
-
-
+    /**
+     * Tests typed array conversion when provided array is too small.
+     */
     @Test
     void testToArrayTypedSmallerArray() {
         Candy[] arr = new Candy[1];
@@ -140,7 +183,9 @@ public class LinkedSetTest {
         assertTrue(expected.containsAll(actual));
 
     }
-
+    /**
+     * Tests typed array conversion when provided array is larger.
+     */
     @Test
     void testToArrayTypedLargerArray() {
         Candy[] arr = new Candy[gift.size() + 3];
@@ -149,7 +194,9 @@ public class LinkedSetTest {
         assertNull(result[gift.size()]);
         assertEquals(gift.size() + 3, result.length);
     }
-
+    /**
+     * Verifies {@link LinkedSet#containsAll(Collection)} behavior.
+     */
     @Test
     void testContainsAll() {
         assertTrue(candySet.containsAll(gift));
@@ -159,17 +206,20 @@ public class LinkedSetTest {
         );
         assertFalse(candySet.containsAll(fake));
     }
-
+    /**
+     * Tests {@link LinkedSet#addAll(Collection)}.
+     */
     @Test
     void testAddAll() {
         LinkedSet<Candy> set = new LinkedSet<>();
         assertTrue(set.addAll(gift));
         assertTrue(set.containsAll(gift));
 
-        // повторне додавання не повинно змінити сет
         assertFalse(set.addAll(gift));
     }
-
+    /**
+     * Tests {@link LinkedSet#removeAll(Collection)}.
+     */
     @Test
     void testRemoveAll() {
         List<Candy> toRemove = gift.subList(0, 3);
@@ -179,7 +229,9 @@ public class LinkedSetTest {
             assertFalse(candySet.contains(c));
         }
     }
-
+    /**
+     * Tests {@link LinkedSet#retainAll(Collection)}.
+     */
     @Test
     void testRetainAll() {
         List<Candy> toKeep = gift.subList(0, 2);
@@ -188,7 +240,9 @@ public class LinkedSetTest {
         assertEquals(toKeep.size(), candySet.size());
         assertTrue(candySet.containsAll(toKeep));
     }
-
+    /**
+     * Ensures {@link LinkedSet#clear()} empties the set and updates modCount.
+     */
     @Test
     void testClear() {
         candySet.clear();
@@ -202,7 +256,9 @@ public class LinkedSetTest {
         candySet.add(gift.get(0));
         assertThrows(ConcurrentModificationException.class, it::next);
     }
-
+    /**
+     * Verifies {@link LinkedSet#toString()} includes expected structural format.
+     */
     @Test
     void testToString() {
         String result = candySet.toString();

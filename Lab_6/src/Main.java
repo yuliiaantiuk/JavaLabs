@@ -56,20 +56,20 @@ public class Main {
         // Attempt to add the same candy again (duplicated element)
         System.out.println("Duplicating newCandy: " + candySet.add(newCandy));
         System.out.println("Size of candySet: " + candySet.size());
-
+        // Remove the new candy
         candySet.remove(newCandy);
 
         System.out.println("candySet after removing newCandy: " +  candySet.toString());
         System.out.println("Size of candySet: " + candySet.size());
-
+        // Search for a specific candy in the set
         Candy searchedCandy = gift.get(3);
 
         System.out.println("searchedCandy: " + searchedCandy.toString());
         System.out.println("candySet contains searchCandy: " +  candySet.contains(searchedCandy));
-
+        // Verify that deleted candy no longer exists
         System.out.println("newCandy that was deleted and now does not exist in set: " + newCandy.toString());
         System.out.println("candySet contains newCandy: " +  candySet.contains(newCandy));
-
+        // Iterate through elements using an iterator
         System.out.println("Iterating through candySet: ");
         Iterator<Candy> iterator = candySet.iterator();
         while (iterator.hasNext()) {
@@ -77,20 +77,20 @@ public class Main {
             System.out.println(" - " + candy);
         }
         System.out.println();
-
+        // Convert to Object[] array
         Object[] candyArray = candySet.toArray();
         System.out.println("Array Object[]: " + Arrays.toString(candyArray));
         System.out.println();
-
+        // Convert to typed array Candy[]
         Candy[] candyTypeArray = candySet.toArray(new Candy[0]);
         System.out.println("Array Candy[]: " + Arrays.toString(candyTypeArray));
         System.out.println();
-
+        // Check containsAll method
         List<Candy> subList = gift.subList(0, 3);
         System.out.println("subList: " + subList);
         System.out.println("candySet contains all the elements of subList: " + candySet.containsAll(subList));
         System.out.println();
-
+        // Add new candies as a collection
         List<Candy> newCandies = new ArrayList<>();
         newCandies.add(new CaramelCandy("Duchess", 13, 86.4, 120, 0, "liquid"));
         newCandies.add(new Lollipop("Cherry Boom", 22, 90.0, 70, 0, "cherry"));
@@ -99,31 +99,32 @@ public class Main {
         System.out.println("candySet after adding the whole collection through addAll: " + candySet.toString());
         System.out.println("Size of candySet: " + candySet.size());
         System.out.println();
-
+        // Retain only the new candies
         candySet.retainAll(newCandies);
         System.out.println("Keeping only newCandies with retainAll: " + candySet);
         System.out.println("Size of candySet: " + candySet.size());
         System.out.println();
-
+        // Add all old candies again
         candySet.addAll(gift);
         System.out.println("After adding the old candies: " + candySet);
         System.out.println("Size of candySet: " + candySet.size());
+        // Remove a few candies
         candySet.removeAll(gift.subList(0, 3));
         System.out.println("After removing 3 candies with removeAll: " + candySet);
         System.out.println("Size of candySet: " + candySet.size());
         System.out.println();
-
+        // Clear the set completely
         candySet.clear();
         System.out.println("candySet after clear(): " + candySet);
         System.out.println("Size of candySet: " + candySet.size());
         System.out.println("Is candySet empty: " + candySet.isEmpty());
         System.out.println();
-
+        // Create an empty LinkedSet
         LinkedSet<Candy> emptyCandySet = new LinkedSet<>();
         System.out.println("Size of emptyCandySet: " + emptyCandySet.size());
         System.out.println("Is emptyCandySet empty: " + emptyCandySet.isEmpty());
         System.out.println();
-
+        // Create a single-element LinkedSet
         LinkedSet<Candy> singleCandySet = new LinkedSet<>(new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false));
         System.out.println("Size of singleCandySet: " + singleCandySet.size());
         System.out.println("Is singleCandySet empty: " + singleCandySet.isEmpty());
