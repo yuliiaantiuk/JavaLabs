@@ -20,41 +20,68 @@ public class LinkedSet<T> implements Set<T> {
         E value;
         /** The reference to the next node in the list. */
         Node<E> next;
+        /**
+         * Constructs a new node with the given value and next node reference.
+         *
+         * @param v the value to store
+         * @param n the reference to the next node
+         */
         Node(E v, Node<E> n) {
             value = v;
             next = n;
         }
     }
-
+    /** The head node of the linked list. */
     private Node<T> head;
+    /** The number of elements in this set. */
     private int size;
+    /** The number of times this set has been structurally modified. */
     private int modCount;
-
+    /**
+     * Constructs an empty {@code LinkedSet}.
+     */
     public LinkedSet() {
         head = null;
         size = 0;
         modCount = 0;
     }
-
+    /**
+     * Constructs a {@code LinkedSet} containing the specified single element.
+     *
+     * @param element the element to add to this set
+     */
     public LinkedSet(T element) {
         this();
         add(element);
     }
-
+    /**
+     * Constructs a {@code LinkedSet} containing all elements from the specified collection.
+     *
+     * @param c the collection whose elements are to be placed into this set
+     * @throws {@link NullPointerException} if the specified collection is {@code null}
+     */
     public LinkedSet(Collection<? extends T> c) {
         this();
         if (c == null) throw new NullPointerException("Collection is null");
         for (T e : c) add(e);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int size() {
         return size;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean add(T element) {
         if (contains(element)) {
@@ -65,7 +92,9 @@ public class LinkedSet<T> implements Set<T> {
         modCount++;
         return true;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean remove(Object element) {
         if (head == null) return false;
@@ -90,7 +119,9 @@ public class LinkedSet<T> implements Set<T> {
         }
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean contains(Object element) {
         for (Node<T> current = head; current != null; current = current.next) {
@@ -100,7 +131,15 @@ public class LinkedSet<T> implements Set<T> {
         }
         return false;
     }
-    // тести залишились звідси
+    /**
+     * Returns an iterator over the elements in this set.
+     * <p>
+     * The iterator does not support modification of the set during iteration.
+     * If the set is modified while iterating, a {@link ConcurrentModificationException} is thrown.
+     * </p>
+     *
+     * @return an iterator over the elements in this set
+     */
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
@@ -125,7 +164,9 @@ public class LinkedSet<T> implements Set<T> {
             }
         };
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object[] toArray() {
         Object[] arr = new Object[size];
@@ -135,6 +176,9 @@ public class LinkedSet<T> implements Set<T> {
         }
         return arr;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @SuppressWarnings("unchecked")
     public <E> E[] toArray(E[] a) {
@@ -151,12 +195,18 @@ public class LinkedSet<T> implements Set<T> {
 
         return a;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean containsAll(Collection<?> c) {
         for (Object e : c)
             if (!contains(e)) return false;
         return true;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addAll(Collection<? extends T> c) {
         boolean changed = false;
@@ -164,6 +214,9 @@ public class LinkedSet<T> implements Set<T> {
             if (add(e)) changed = true;
         return changed;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean changed = false;
@@ -184,6 +237,9 @@ public class LinkedSet<T> implements Set<T> {
         if (changed) modCount++;
         return changed;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean removeAll(Collection<?> c) {
         boolean changed = false;
@@ -191,12 +247,23 @@ public class LinkedSet<T> implements Set<T> {
             if (remove(e)) changed = true;
         return changed;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         head = null;
         size = 0;
         modCount++;
     }
+    /**
+     * Returns a string representation of this set.
+     * <p>
+     * The format is {@code [element1, element2, ...]}.
+     * </p>
+     *
+     * @return a string containing all elements of this set
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");

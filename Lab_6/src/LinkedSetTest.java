@@ -1,125 +1,214 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
 
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LinkedSetTest {
+
+    private List<Candy> gift;
+    private LinkedSet<Candy> candySet;
+
+    @BeforeEach
+    void setUp() {
+        gift = createGift();
+        candySet = new LinkedSet<>(gift);
+    }
+
+    private List<Candy> createGift() {
+        return Arrays.asList(
+                new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true),
+                new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false),
+                new ChocolateCandy("Dark Bliss", 20, 85.0, 140, 85, false),
+                new CaramelCandy("Wether's", 15, 73.3, 200, 10, "liquid"),
+                new CaramelCandy("Duchess", 18, 86.4, 120, 7, "solid"),
+                new Lollipop("Chupa Chups", 21, 94.6, 83, 0, "apple"),
+                new Lollipop("Chupa Chups", 20, 98.6, 82, 0, "cherry")
+        );
+    }
+
     @Test
     void testEmptyConstructor() {
-        LinkedSet<Candy> candySet = new LinkedSet<>();
+        LinkedSet<Candy> emptySet = new LinkedSet<>();
 
-        assertTrue(candySet.isEmpty(), "Set should be empty after default constructor");
-        assertEquals(0, candySet.size(), "Size should be 0 after default constructor");
+        assertTrue(emptySet.isEmpty());
+        assertEquals(0, emptySet.size());
     }
 
     @Test
     void testSingleElementConstructor() {
-        ChocolateCandy truffle = new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true);
-        LinkedSet<Candy> candySet = new LinkedSet<>(truffle);
+        Candy truffle = new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true);
+        LinkedSet<Candy> set = new LinkedSet<>(truffle);
 
-        assertTrue(candySet.contains(truffle), "Set should contain " + truffle.toString());
-        assertEquals(1, candySet.size(), "Size should be 1 after single element constructor");
-        assertFalse(candySet.isEmpty(), "Set should not be empty after adding candies");
+        assertTrue(set.contains(truffle));
+        assertEquals(1, set.size());
+        assertFalse(set.isEmpty());
     }
 
     @Test
     void testMultipleElementConstructor() {
-        List<Candy> gift = new ArrayList<>();
+        assertEquals(gift.size(), candySet.size());
+        gift.forEach(c -> assertTrue(candySet.contains(c)));
 
-        gift.add(new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true));
-        gift.add(new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false));
-        gift.add(new ChocolateCandy("Dark Bliss", 20, 85.0, 140, 85, false));
-        gift.add(new CaramelCandy("Wether's", 15, 73.3, 200, 10, "liquid"));
-        gift.add(new CaramelCandy("Duchess", 18, 86.4, 120, 7, "solid"));
-        gift.add(new Lollipop("Chupa Chups", 21, 94.6, 83, 0, "apple"));
-        gift.add(new Lollipop("Chupa Chups", 20, 98.6, 82, 0, "cherry"));
-
-        LinkedSet<Candy> candySet = new LinkedSet<>(gift);
-
-        assertEquals(gift.size(), candySet.size(), "Set should contain same number of elements as input list");
-        for (Candy c : gift) {
-            assertTrue(candySet.contains(c), "Set should contain candy: " + c.toString());
-        }
         Candy duplicate = gift.get(0);
-        boolean addedAgain = candySet.add(duplicate);
-        assertFalse(addedAgain, "Duplicate candy should not be added to the set");
-
-        assertFalse(candySet.isEmpty(), "Set should not be empty after adding candies");
+        assertFalse(candySet.add(duplicate));
+        assertFalse(candySet.isEmpty());
     }
 
     @Test
-    void testAdd(){
-        LinkedSet<Candy> candySet = new LinkedSet<>();
-        ChocolateCandy testCandy = new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false);
-        candySet.add(testCandy);
-        assertTrue(candySet.contains(testCandy), "Set should contain candy: " + testCandy.toString());
-        assertFalse(candySet.isEmpty(), "Set should not be empty after adding candies");
-        assertFalse(candySet.add(testCandy), "Set should not add duplicates: ");
+    void testAdd() {
+        LinkedSet<Candy> set = new LinkedSet<>();
+        Candy candy = new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false);
+
+        assertTrue(set.add(candy));
+        assertTrue(set.contains(candy));
+        assertFalse(set.isEmpty());
+        assertFalse(set.add(candy));
     }
 
     @Test
-    void testRemoveStart(){
-        List<Candy> gift = new ArrayList<>();
-
-        gift.add(new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true));
-        gift.add(new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false));
-        gift.add(new ChocolateCandy("Dark Bliss", 20, 85.0, 140, 85, false));
-        gift.add(new CaramelCandy("Wether's", 15, 73.3, 200, 10, "liquid"));
-        gift.add(new CaramelCandy("Duchess", 18, 86.4, 120, 7, "solid"));
-        gift.add(new Lollipop("Chupa Chups", 21, 94.6, 83, 0, "apple"));
-        gift.add(new Lollipop("Chupa Chups", 20, 98.6, 82, 0, "cherry"));
-
-        LinkedSet<Candy> candySet = new LinkedSet<>(gift);
-
+    void testRemove() {
         int initialSize = candySet.size();
-        Candy firstCandy = gift.get(0);
 
-        assertTrue(candySet.remove(firstCandy), "Set should remove first candy: " + firstCandy.toString());
-        assertEquals(initialSize - 1, candySet.size(), "Set size should decrease by 1 after removal");
-        assertFalse(candySet.contains(firstCandy), "Removed element should no longer be in the set");
+        // Test removing first, middle, last in one test
+        Candy first = gift.get(0);
+        Candy middle = gift.get(3);
+        Candy last = gift.get(gift.size() - 1);
+
+        assertTrue(candySet.remove(first));
+        assertTrue(candySet.remove(middle));
+        assertTrue(candySet.remove(last));
+
+        assertEquals(initialSize - 3, candySet.size());
+        assertFalse(candySet.contains(first));
+        assertFalse(candySet.contains(middle));
+        assertFalse(candySet.contains(last));
     }
 
     @Test
-    void testRemoveMiddle(){
-        List<Candy> gift = new ArrayList<>();
+    void testContains() {
+        Candy exists = gift.get(4);
+        Candy notExists = new Lollipop("Lollipop", 21, 94.6, 83, 0, "plum");
 
-        gift.add(new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true));
-        gift.add(new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false));
-        gift.add(new ChocolateCandy("Dark Bliss", 20, 85.0, 140, 85, false));
-        gift.add(new CaramelCandy("Wether's", 15, 73.3, 200, 10, "liquid"));
-        gift.add(new CaramelCandy("Duchess", 18, 86.4, 120, 7, "solid"));
-        gift.add(new Lollipop("Chupa Chups", 21, 94.6, 83, 0, "apple"));
-        gift.add(new Lollipop("Chupa Chups", 20, 98.6, 82, 0, "cherry"));
-
-        LinkedSet<Candy> candySet = new LinkedSet<>(gift);
-
-        int initialSize = candySet.size();
-        Candy middleCandy = gift.get(3);
-
-        assertTrue(candySet.remove(middleCandy), "Set should remove middle candy: " + middleCandy.toString());
-        assertEquals(initialSize - 1, candySet.size(), "Set size should decrease by 1 after removal");
-        assertFalse(candySet.contains(middleCandy), "Removed element should no longer be in the set");
+        assertTrue(candySet.contains(exists));
+        assertFalse(candySet.contains(notExists));
     }
 
     @Test
-    void testRemoveLast(){
-        List<Candy> gift = new ArrayList<>();
+    void testIteratorTraversesAllElements() {
+        Iterator<Candy> it = candySet.iterator();
+        List<Candy> result = new ArrayList<>();
 
-        gift.add(new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true));
-        gift.add(new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false));
-        gift.add(new ChocolateCandy("Dark Bliss", 20, 85.0, 140, 85, false));
-        gift.add(new CaramelCandy("Wether's", 15, 73.3, 200, 10, "liquid"));
-        gift.add(new CaramelCandy("Duchess", 18, 86.4, 120, 7, "solid"));
-        gift.add(new Lollipop("Chupa Chups", 21, 94.6, 83, 0, "apple"));
-        gift.add(new Lollipop("Chupa Chups", 20, 98.6, 82, 0, "cherry"));
+        while (it.hasNext()) {
+            result.add(it.next());
+        }
 
-        LinkedSet<Candy> candySet = new LinkedSet<>(gift);
-
-        int initialSize = candySet.size();
-        Candy lastCandy = gift.get(gift.size() - 1);
-
-        assertTrue(candySet.remove(lastCandy), "Set should remove last candy: " + lastCandy.toString());
-        assertEquals(initialSize - 1, candySet.size(), "Set size should decrease by 1 after removal");
-        assertFalse(candySet.contains(lastCandy), "Removed element should no longer be in the set");
+        assertEquals(gift.size(), result.size());
+        assertTrue(result.containsAll(gift));
     }
+
+    @Test
+    void testIteratorFailFastOnModification() {
+        Iterator<Candy> it = candySet.iterator();
+        candySet.add(new Lollipop("New", 10, 10, 10, 0, "berry"));
+
+        assertThrows(ConcurrentModificationException.class, it::next);
+    }
+
+    @Test
+    void testToArrayObject() {
+        Object[] arr = candySet.toArray();
+
+        assertEquals(gift.size(), arr.length);
+        List<Object> resultList = Arrays.asList(arr);
+
+        assertTrue(resultList.containsAll(gift));
+        assertTrue(gift.containsAll(resultList));
+    }
+
+
+    @Test
+    void testToArrayTypedSmallerArray() {
+        Candy[] arr = new Candy[1];
+        Candy[] result = candySet.toArray(arr);
+
+        List<Candy> expected = new ArrayList<>(gift);
+        List<Candy> actual = Arrays.asList(result);
+
+        assertEquals(expected.size(), actual.size());
+        assertTrue(actual.containsAll(expected));
+        assertTrue(expected.containsAll(actual));
+
+    }
+
+    @Test
+    void testToArrayTypedLargerArray() {
+        Candy[] arr = new Candy[gift.size() + 3];
+        Candy[] result = candySet.toArray(arr);
+
+        assertNull(result[gift.size()]);
+        assertEquals(gift.size() + 3, result.length);
+    }
+
+    @Test
+    void testContainsAll() {
+        assertTrue(candySet.containsAll(gift));
+
+        Collection<Candy> fake = List.of(
+                new Lollipop("Lollipop", 5, 10, 10, 0, "orange")
+        );
+        assertFalse(candySet.containsAll(fake));
+    }
+
+    @Test
+    void testAddAll() {
+        LinkedSet<Candy> set = new LinkedSet<>();
+        assertTrue(set.addAll(gift));
+        assertTrue(set.containsAll(gift));
+
+        // повторне додавання не повинно змінити сет
+        assertFalse(set.addAll(gift));
+    }
+
+    @Test
+    void testRemoveAll() {
+        List<Candy> toRemove = gift.subList(0, 3);
+        assertTrue(candySet.removeAll(toRemove));
+
+        for (Candy c : toRemove) {
+            assertFalse(candySet.contains(c));
+        }
+    }
+
+    @Test
+    void testRetainAll() {
+        List<Candy> toKeep = gift.subList(0, 2);
+        assertTrue(candySet.retainAll(toKeep));
+
+        assertEquals(toKeep.size(), candySet.size());
+        assertTrue(candySet.containsAll(toKeep));
+    }
+
+    @Test
+    void testClear() {
+        candySet.clear();
+
+        assertTrue(candySet.isEmpty());
+        assertEquals(0, candySet.size());
+        assertFalse(candySet.contains(gift.get(0)));
+
+        // clear має збільшувати modCount -> iterator after clear throws
+        Iterator<Candy> it = candySet.iterator();
+        candySet.add(gift.get(0));
+        assertThrows(ConcurrentModificationException.class, it::next);
+    }
+
+    @Test
+    void testToString() {
+        String result = candySet.toString();
+        assertTrue(result.startsWith("["));
+        assertTrue(result.endsWith("]"));
+        assertTrue(result.contains(gift.get(0).toString()));
+    }
+
 }

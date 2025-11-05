@@ -1,9 +1,38 @@
 import java.util.*;
-
+/**
+ * Demonstrates the functionality of the {@link LinkedSet} class using {@code Candy} objects.
+ * <p>
+ * The program creates and manipulates a collection of candy objects wrapped in a {@code LinkedSet},
+ * demonstrating the performance of operations such as:
+ * </p>
+ * <ul>
+ *   <li>Creating sets with constructors</li>
+ *   <li>Adding and removing elements</li>
+ *   <li>Iterating through a set</li>
+ *   <li>Checking containment and set relationships</li>
+ *   <li>Converting a set to arrays</li>
+ *   <li>Using {@code retainAll}, {@code removeAll}, and {@code clear}</li>
+ * </ul>
+ * <p>
+ * This class serves as a demonstration driver for testing the custom {@code LinkedSet} implementation.
+ * </p>
+ *
+ */
 public class Main {
+    /**
+     * The main entry point of the application.
+     * <p>
+     * It initializes several {@code Candy} objects of different types
+     * ({@code ChocolateCandy}, {@code CaramelCandy}, {@code Lollipop}) and performs a
+     * series of {@code LinkedSet} operations to demonstrate functionality.
+     * </p>
+     *
+     * @param args command-line arguments
+     */
     public static void main(String[] args) {
+        // Create a list of various Candy objects
         List<Candy> gift = new ArrayList<>();
-
+        // Insert different candy types in the list
         gift.add(new ChocolateCandy("Truffle", 25, 72.2, 150, 70, true));
         gift.add(new ChocolateCandy("Caramel Heart", 30, 100.5, 180, 50, false));
         gift.add(new ChocolateCandy("Dark Bliss", 20, 85.0, 140, 85, false));
@@ -11,18 +40,20 @@ public class Main {
         gift.add(new CaramelCandy("Duchess", 18, 86.4, 120, 7, "solid"));
         gift.add(new Lollipop("Chupa Chups", 21, 94.6, 83, 0, "apple"));
         gift.add(new Lollipop("Chupa Chups", 20, 98.6, 82, 0, "cherry"));
-
+        // Initialize LinkedSet with a collection of candies
         LinkedSet<Candy> candySet = new LinkedSet<>(gift);
 
         System.out.println("Original candySet: " +  candySet.toString());
         System.out.println("Size of candySet: " + candySet.size());
 
+        // Add a new chocolate candy
         ChocolateCandy newCandy = new ChocolateCandy("Millenium", 32, 98.2, 120, 80, true);
         candySet.add(newCandy);
 
         System.out.println("candySet after adding newCandy: " +  candySet.toString());
         System.out.println("Size of candySet: " + candySet.size());
 
+        // Attempt to add the same candy again (duplicated element)
         System.out.println("Duplicating newCandy: " + candySet.add(newCandy));
         System.out.println("Size of candySet: " + candySet.size());
 
