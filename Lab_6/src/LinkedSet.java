@@ -58,7 +58,7 @@ public class LinkedSet<T> implements Set<T> {
      * Constructs a {@code LinkedSet} containing all elements from the specified collection.
      *
      * @param c the collection whose elements are to be placed into this set
-     * @throws {@link NullPointerException} if the specified collection is {@code null}
+     * @throws NullPointerException if the specified collection is {@code null}
      */
     public LinkedSet(Collection<? extends T> c) {
         this();
