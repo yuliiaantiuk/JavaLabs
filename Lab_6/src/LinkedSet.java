@@ -67,6 +67,9 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     * <p>Returns the size of the set.</p>
+     *
+     * @return The size of the set.
      */
     @Override
     public int size() {
@@ -74,6 +77,9 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     *<p> Returns if the set is empty.</p>
+     *
+     * @return {@code true} if the set is empty, {@code false} otherwise.
      */
     @Override
     public boolean isEmpty() {
@@ -81,6 +87,9 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     * <p>Adds the specified element to the beginning of the set.</p>
+     *
+     * @return {@code true} if the element was added successfully, {@code false} otherwise.
      */
     @Override
     public boolean add(T element) {
@@ -94,12 +103,14 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     * <p>Removes the specified element from the set.</p>
+     *
+     * @return {@code true} if the element was removed successfully, {@code false} otherwise.
      */
     @Override
     public boolean remove(Object element) {
         if (head == null) return false;
 
-        // якщо елемент у голові списку
         if (Objects.equals(head.value, element)) {
             head = head.next;
             size--;
@@ -121,6 +132,9 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     * <p>Returns if the set contains the specified element</p>
+     *
+     * @return {@code true} if the set contains the specified element, {@code false} otherwise.
      */
     @Override
     public boolean contains(Object element) {
@@ -166,6 +180,10 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     * <p>Returns an array containing all of the elements in this set in the order
+     * they are stored internally. The elements are returned in insertion order.</p>
+     *
+     * @return an array containing all elements of the set
      */
     @Override
     public Object[] toArray() {
@@ -178,6 +196,18 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     * <p>Returns an array containing all of the elements in this set.
+     * If the provided array is large enough, the elements are stored
+     * in it. Otherwise, a new array of the same runtime type is created.</p>
+     *
+     * <p>If the array is larger than the size of the set, the element immediately
+     * following the last set element is set to {@code null}.</p>
+     *
+     * @param <E> the runtime type of the returned array.
+     *
+     * @throws NullPointerException if the specified array is {@code null}
+     *
+     * @return an array containing all elements of the set
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -197,6 +227,14 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     *
+     * <p>Checks whether this set contains every element in the specified
+     * collection by iterating over the collection and calling {@link #contains(Object)}
+     * for each element.</p>
+     *
+     * @param c the collection to check for containment
+     * @return {@code true} if this set contains all elements from the given collection
+     * @throws NullPointerException if the specified collection is {@code null}
      */
     @Override
     public boolean containsAll(Collection<?> c) {
@@ -206,6 +244,13 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     *
+     * <p>Adds all of the elements from the specified collection to this set.
+     * Duplicate elements (determined by {@code equals}) are ignored.</p>
+     *
+     * @param c the collection containing elements to be added
+     * @return {@code true} if at least one element was added
+     * @throws NullPointerException if the specified collection is {@code null}
      */
     @Override
     public boolean addAll(Collection<? extends T> c) {
@@ -216,6 +261,16 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     *
+     * <p>Retains only the elements in this set that are contained in the specified
+     * collection. Elements not present in the collection are removed.</p>
+     *
+     * <p>This method iterates over the set and removes nodes not found in the
+     * specified collection, updating internal size and modification count.</p>
+     *
+     * @param c the collection containing elements to retain
+     * @return {@code true} if the set was modified
+     * @throws NullPointerException if the specified collection is {@code null}
      */
     @Override
     public boolean retainAll(Collection<?> c) {
@@ -239,6 +294,13 @@ public class LinkedSet<T> implements Set<T> {
     }
     /**
      * {@inheritDoc}
+     *
+     * <p>Removes from this set all elements that are contained in the specified
+     * collection. Each element in the collection is removed using {@link #remove(Object)}.</p>
+     *
+     * @param c the collection containing elements to be removed
+     * @return {@code true} if the set was modified
+     * @throws NullPointerException if the specified collection is {@code null}
      */
     @Override
     public boolean removeAll(Collection<?> c) {
